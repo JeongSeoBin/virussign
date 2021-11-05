@@ -8,17 +8,20 @@ function App() {
   const [items, setItems] = useState(null);
 
   async function callAPI(date = "") {
-    const request = "/stat";
+    const request = "http://10.106.13.251:9789/stat";
     const params = {
       params: {
         date: date,
       },
     };
 
-    await axios.get(request, params).then((response) => {
-      console.log("response", response);
-      setItems(response);
-    });
+    await axios
+      .get(request, params)
+      .then((response) => setItems(response))
+      .catch((err) => {
+        console.log("errpr", err);
+        setItems(null);
+      });
   }
 
   useEffect(() => {
